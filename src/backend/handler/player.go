@@ -17,10 +17,5 @@ func PlayerHandler(w http.ResponseWriter, r *http.Request) {
 		Name: name,
 	}
 
-	if name == "" {
-		util.JSON(w, r, http.StatusInternalServerError, nil)
-		return
-	}
-
 	util.JSON(w, r, http.StatusOK, resp)
 }
