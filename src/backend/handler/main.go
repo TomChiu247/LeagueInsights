@@ -18,5 +18,6 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 	resp := MainResponse{
 		Data: data,
 	}
+
 	util.JSON(w, r, http.StatusOK, resp)
 }
