@@ -6,10 +6,12 @@ import (
 	"github.com/TomChiu247/LeagueInsights/src/backend/util"
 )
 
+// MainResponse handles main response
 type MainResponse struct {
 	Data string `json:"data"`
 }
 
+// MainHandler handles main
 func MainHandler(w http.ResponseWriter, r *http.Request) {
 	data := r.URL.Query().Get("data")
 
