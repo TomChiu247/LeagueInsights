@@ -18,7 +18,7 @@ type PlayerResponse struct {
 func PlayerHandler(w http.ResponseWriter, r *http.Request) {
 	name := r.URL.Query().Get("name")
 
-	apiKey := "RGAPI-5a3f34a8-9f7d-4a27-8d3c-5cc3fea22667"
+	apiKey := util.GetKey()
 
 	resp, err := http.Get(fmt.Sprintf("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/%s?api_key=%s", name, apiKey))
 
