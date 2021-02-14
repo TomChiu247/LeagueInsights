@@ -1,8 +1,8 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -18,7 +18,7 @@ type PlayerResponse struct {
 func PlayerHandler(w http.ResponseWriter, r *http.Request) {
 	name := r.URL.Query().Get("name")
 
-	apiKey := "RGAPI-5a3f34a8-9f7d-4a27-8d3c-5cc3fea22667"
+	apiKey := util.GetKey()
 
 	resp, err := http.Get(fmt.Sprintf("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/%s?api_key=%s", name, apiKey))
 
@@ -26,14 +26,27 @@ func PlayerHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln(err)
 	}
 
-	//We Read the response body on the line below.
-	body, err := ioutil.ReadAll(resp.Body)
+	var playerData map[string]interface{}
+
+	err = json.NewDecoder(resp.Body).Decode(&playerData)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	//Convert the body to type string
-	sb := string(body)
+	accountID := playerData["accountId"]
+	respMatch, errMatch := http.Get(fmt.Sprintf("https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/%s?api_key=%s&endIndex=10", accountID, apiKey))
 
-	util.JSON(w, r, http.StatusOK, sb)
+	if errMatch != nil {
+		log.Fatalln(errMatch)
+	}
+
+	var matchData map[string]interface{}
+
+	err = json.NewDecoder(respMatch.Body).Decode(&matchData)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	util.JSON(w, r, http.StatusOK, playerData)
+	util.JSON(w, r, http.StatusOK, matchData)
 }

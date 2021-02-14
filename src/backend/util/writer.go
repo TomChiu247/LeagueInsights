@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// JSON converts maps in JSON
 func JSON(w http.ResponseWriter, r *http.Request, status int, data interface{}) {
 	bytes, err := json.Marshal(data)
 	if err != nil {
