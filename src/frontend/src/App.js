@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import {useState, useEffect } from 'react'
+import './index.css';
+import Header from './components/Header'
+import Search from './components/Search'
+
+const App = () => {
+  const[items, setItems] = useState([])
+  const[loadStatus, setLoadStatus] = useState(false)
+
+  const getValue = (event) => {
+    console.log('Event: ', event)
+  }
+
+  const componentDidMount = (playerName) => e => {
+    fetch(`localhost:8080/player/${playerName}`)
+    .then((response) => {
+      if (window.status === 200) {
+        return response.json();
+      }
+      throw new Error('Error: Invalid Summoner Name');
+    })
+    .then((responseJSON) => {
+      console.log(responseJSON)
+    })
+    .catch((err)=> {
+      throw new Error('Error: Invalid Summoner Name')
+    });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Header/>
+      <Search getValueFunctionFromMain = {getValue}/>
     </div>
   );
 }
