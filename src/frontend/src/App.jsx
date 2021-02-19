@@ -15,7 +15,7 @@ const App = () => {
   //'https://agile-chamber-72618.herokuapp.com/http://localhost:8080/player?name=${userName}`
   function retrieveSummoner(userName) {
     fetch(`http://localhost:8080/player?name=${userName}`, {
-      //mode: 'no-cors',
+      mode: 'no-cors',
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -31,7 +31,7 @@ const App = () => {
       console.log(responseJSON)
     })
     .catch((err)=> {
-      console.log('Error: Invalid Summoner Name')
+      console.log('Error')
     });
   }
 

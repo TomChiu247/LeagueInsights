@@ -14,11 +14,19 @@ type PlayerResponse struct {
 	Name string `json:"name"`
 }
 
+
+//func enableCorss(w *http.ResponseWriter) {
+//	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+//}
+
 // PlayerHandler handles player
 func PlayerHandler(w http.ResponseWriter, r *http.Request) {
+	//w.Header().Set("Content-Type", "text/html; charset=utf-8")
+    w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	name := r.URL.Query().Get("name")
 
-	apiKey := "RGAPI-91fdb58d-b815-4f85-93de-0f2d5505f0ae"
+	apiKey := util.GetKey()
 
 	resp, err := http.Get(fmt.Sprintf("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/%s?api_key=%s", name, apiKey))
 
