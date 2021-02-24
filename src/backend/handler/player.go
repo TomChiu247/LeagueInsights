@@ -26,7 +26,7 @@ func PlayerHandler(w http.ResponseWriter, r *http.Request) {
 
 	name := r.URL.Query().Get("name")
 
-	apiKey := util.GetKey()
+	apiKey := "RGAPI-1ec59ed7-03e5-4eb2-b614-2b304e5461c9"
 
 	resp, err := http.Get(fmt.Sprintf("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/%s?api_key=%s", name, apiKey))
 

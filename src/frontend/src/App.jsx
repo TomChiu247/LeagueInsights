@@ -5,33 +5,21 @@ import Header from './components/Header'
 import Search from './components/Search'
 
 const App = () => {
-  //const[items, setItems] = useState([])
   const[loadStatus, setLoadStatus] = useState(false)
 
-  //const getValue = (playerName) => {
-  //  setUserName(`${playerName}`)
-  //  console.log(userName)
-  //}
-  //'https://agile-chamber-72618.herokuapp.com/http://localhost:8080/player?name=${userName}`
   function retrieveSummoner(userName) {
     fetch(`http://localhost:8080/player?name=${userName}`, {
-      mode: 'no-cors',
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      }
-      else{
-        throw new Error('Error: Invalid Summoner Name');
-      }
-    })
+    .then((response) => response.json())
     .then((responseJSON) => {
-      console.log(responseJSON)
+      if (responseJSON) {
+        console.log(responseJSON)
+      }
     })
     .catch((err)=> {
-      console.log('Error')
+      console.log(err)
     });
   }
 

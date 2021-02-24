@@ -8,7 +8,6 @@ import (
 // NewRouter returns a router
 func NewRouter() *mux.Router {
 	r := mux.NewRouter().StrictSlash(true)
-	r.HandleFunc("/", handler.MainHandler).Methods("GET")
 	r.HandleFunc("/player", handler.PlayerHandler).Methods("GET")
 	return r
 }
