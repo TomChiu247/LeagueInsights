@@ -18,4 +18,4 @@ Start web page: $ npm start
 
 # Run backend
 
-Start backend server: % go run main.go 
+Start backend server: $ go run main.go 
